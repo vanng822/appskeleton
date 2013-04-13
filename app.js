@@ -10,7 +10,7 @@ pstarter.startMaster(config).startWorker(function() {
 	var bootstrap = require('./app/bootstrap.js');
 	bootstrap.setupApp(app, __dirname);
 	bootstrap.bootstrap(app);
-	server.listen(config.http.port, function() {
+	server.listen(config.http.port, config.http.host, function() {
 		bootstrap.postrun();
 	});
 });
