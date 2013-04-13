@@ -56,14 +56,20 @@ cd ${TARGET_DIR} && npm install
 if [ "$ADD_GIT" = "1" ]; then
 	echo "Adding files to git repo"
 	touch ${TARGET_DIR}/.gitignore
-	echo ".project\nnode_modules/*" > ${TARGET_DIR}/.gitignore
+	echo ".project" > ${TARGET_DIR}/.gitignore
+	echo "node_modules/*" >> ${TARGET_DIR}/.gitignore
+	echo "pstarter.pid" >> ${TARGET_DIR}/.gitignore
+	echo "public/img/dist/*" >> ${TARGET_DIR}/.gitignore
+	
 	git add ${TARGET_DIR}/.gitignore
 	git add ${TARGET_DIR}/package.json
 	git add ${TARGET_DIR}/app/*
 	git add ${TARGET_DIR}/config/*
 	git add ${TARGET_DIR}/etc/init.d/${APP_NAME}
 	git add ${TARGET_DIR}/${APP_NAME}.js
-	git add ${TARGET_DIR}/public/*
+	git add ${TARGET_DIR}/public/css
+	git add ${TARGET_DIR}/public/js
+	git add ${TARGET_DIR}/public/img/icons/loading.gif
 	git add ${TARGET_DIR}/lib/*
 	git add ${TARGET_DIR}/views/*
 	echo "Added all to git repo"
