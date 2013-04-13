@@ -1,0 +1,15 @@
+{
+	"name": "APP_NAME",
+	"description": "APP_NAME",
+	"author": "Nguyen Van Nhu",
+	"dependencies": {
+		"express": "3.0",
+		"ejs": "https://github.com/vanng822/ejs/tarball/master",
+		"jcash": "*",
+		"pstarter" : "*",
+		"vnfconfig": "*",
+		"emptygif": "*",
+		"pagination" : "*"
+	},
+	"version": "0.0.0"
+}

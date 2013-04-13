@@ -1,0 +1,105 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          pstarter
+# Required-Start:    $local_fs $remote_fs $network $syslog
+# Required-Stop:     $local_fs $remote_fs $network $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start/stop node servers batch script
+### END INIT INFO
+NODE_BIN=./
+SERVER="pstarter.js"
+
+PID_FILE="./pstarter.pid"
+AS_USER="www-data"
+NODEJS=node
+NODE_ENV=development
+
+which $NODEJS  &>/dev/null
+res=$?
+
+if [ ! $res -eq 0 ]; then
+	echo "Node program could not be found"
+	exit 1
+fi
+
+cleanup_pid() {
+	cat > $PID_FILE &
+	echo "clean up"
+}
+
+stop_server() {
+	echo "Stop node server"
+	PID=$(cat $PID_FILE)
+	kill $PID > /dev/null &2>&1
+	#while [ "$PID" != "" ]; do
+	#	sleep 0.1
+	#	PID=$(cat $PID_FILE)
+	#done
+	echo "Node server stopped!"
+}
+
+start_server() {
+	PID=$(cat $PID_FILE)
+	if [ "$PID" != "" ]; then
+		echo "PID exists: server is running or not clean exit"
+	fi
+	echo "Start node server"
+    cd $NODE_BIN
+    $NODEJS $SERVER NODE_ENV=$NODE_ENV PID_FILE=$PID_FILE AS_USER=$AS_USER > /dev/null &2>&1
+    res=$?
+    if [ ! "$res" -eq 0 ]; then
+    	echo "Could not start"
+    	exit 1
+    else
+	    echo "Node server started"
+	    exit 0
+	 fi
+}
+
+gracefull_server() {
+	echo "Graceful node server"
+	PID=$(cat $PID_FILE)
+	kill -s USR2 $PID
+	echo "Graceful node server done"
+}
+
+restart_server() {
+	echo "Restart node server"
+	PID=$(cat $PID_FILE)
+	kill -s HUP $PID
+	echo "Restart node server done"
+}
+
+print_help() {
+	echo "Usage: pstarter start | stop | graceful | restart | force-restart "
+	exit
+}
+
+case "$1" in
+	force-restart)
+		stop_server
+		sleep 1
+		start_server
+		exit 0
+		;;
+	graceful)
+		gracefull_server
+		exit 0
+		;;
+	start)
+		start_server
+		exit 0
+		;;
+	stop)
+		stop_server
+		exit 0
+		;;
+	restart)
+		restart_server
+		exit 0
+		;;
+	*)
+		print_help
+		;;
+esac

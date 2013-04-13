@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<% if (isMobile) {%>
+	<%- renderStyleTags('mobile') %>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<%} else {%>
+	<%- renderStyleTags() %>
+	<% } %>
+	<% if (metaTags) {
+		metaTags.forEach(function(metaTag) {
+			%>
+			<%- metaTag %>
+			<%
+		});
+	} %>
+</head>
+<body>
+<div id="container">
+	<div id="header" class="clearfix">
+		<div class="pageContent clearfix">
+			<!-- Top, logo -->
+			LOGO
+		</div>
+	</div>
+	<div id="mainContent" class="pageContent clearfix">
+	<%- body -%>
+	</div>
+	<div id="footer" class="clearfix">
+		<div class="pageContent clearfix">
+			FOOTER
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+(function() {
+	var __errorCount = 0, __maxCount = 10, reportLink = 'http://report.jserrorpixel.com/';
+	window.onerror = function(message, file, linenumber) {
+		var message = message || "", file = file || "", linenuumber = linenumber || 0, img;
+		if (__errorCount > __maxCount) {
+			window.onerror = null;
+			return;
+		}
+		try {
+			__errorCount++;
+			img = new Image();
+			img.src = reportLink + "?line=" + linenumber + "&message=" + message +  "&file=" + file;
+		} catch(e) {
+			
+		}
+	};
+})();
+</script>
+<%- renderScriptTags() %>
+<script type="text/javascript">
+$(function(){
+	window.isMobile = <%- isMobile %>;
+	window.loadingImage = "<%- getImageUrl('/img/icons/loading.gif') %>";
+});
+</script>
+<%- renderBottomScripts() %>
+<script src="http://webperf.isgoodness.com/webperf.js" type="text/javascript"></script>
+<script type="text/javascript">
+(function() {
+	function webperf() {
+		WebPerf.account('igeonote.com');
+		WebPerf.perform();
+	};
+	window.addEventListener('load', webperf, false);
+})();
+</script>
+</body>
+</html>

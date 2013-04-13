@@ -1,0 +1,87 @@
+@CHARSET "UTF-8";
+
+.clearfix:after { content: "."; display:block; height:0; clear:both; visibility:hidden; }
+.clearfix { display:inline-block; }
+* html .clearfix { height:1%; }
+.clearfix { display:block; }
+.clear {
+	clear:both;
+}
+
+#container {
+	float: left;
+	width: 100%;
+}
+
+.pageContent {
+	max-width: 980px;
+	padding: 0 10px;
+	margin: 0 auto;
+}
+
+#header {
+	height: 40px;
+	width: 100%;
+}
+
+#footer {
+	float: left;
+	width: 100%;
+	min-height: 50px;
+}
+
+#mainContainer {
+	float: left;
+	width: 100%;
+}
+#mainContent {
+	position: relative;
+}
+
+.loading {
+	position: absolute;
+	z-index: 1000;
+}
+
+.logo {
+	float: left;	
+}
+
+.rtext {
+	text-align: right;
+	padding-right: 6px;
+}
+.ltext {
+	text-align: left;
+	padding-left: 6px;
+}
+.small {
+	font-size: 9px;
+}
+.medium {
+	font-size: 11px;
+}
+
+.breadcrumb {
+	margin-top: 12px;
+    margin-bottom: 12px;
+    font-size: 11px;
+}
+
+.paginator-page {
+	padding: 10px;	
+}
+
+.paginator-previous {
+	
+	padding: 10px;
+}
+.paginator-next {
+	
+	padding: 10px;
+}
+
+.paginator-current {
+	color: black;
+	padding: 10px;
+}
