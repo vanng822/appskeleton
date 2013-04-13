@@ -1,6 +1,6 @@
 #!/bin/sh
 ### BEGIN INIT INFO
-# Provides:          pstarter
+# Provides:          APP_NAME
 # Required-Start:    $local_fs $remote_fs $network $syslog
 # Required-Stop:     $local_fs $remote_fs $network $syslog
 # Default-Start:     2 3 4 5
@@ -8,12 +8,12 @@
 # Short-Description: Start/stop node servers batch script
 ### END INIT INFO
 NODE_BIN=./
-SERVER="pstarter.js"
+SERVER="APP_NAME.js"
 
-PID_FILE="./pstarter.pid"
+PID_FILE=""/var/run/APP_NAME.pid""
 AS_USER="www-data"
 NODEJS=node
-NODE_ENV=development
+NODE_ENV=production
 
 which $NODEJS  &>/dev/null
 res=$?
@@ -72,7 +72,7 @@ restart_server() {
 }
 
 print_help() {
-	echo "Usage: pstarter start | stop | graceful | restart | force-restart "
+	echo "Usage: APP_NAME start | stop | graceful | restart | force-restart "
 	exit
 }
 

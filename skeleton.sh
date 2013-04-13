@@ -1,7 +1,4 @@
-
 #!/bin/bash
-
-START_ACTION=""
 
 if [ "$#" -lt 2 ]; then
 	echo "usage: skeleton.sh {target-dir} {app-name} [add-git]"
@@ -34,8 +31,10 @@ cp ${SOURCE_DIR}/config/*.js ${TARGET_DIR}/config/
 ALL_CONFIG=$(cat ${SOURCE_DIR}/config/all.js)
 echo "${ALL_CONFIG}" | sed "s/APP_NAME/${APP_NAME}/g"  > ${TARGET_DIR}/config/all.js
 
-cp -r ${SOURCE_DIR}/views/ ${TARGET_DIR}/views/ 
-cp ${SOURCE_DIR}/etc/init.d/app ${TARGET_DIR}/etc/init.d/${APP_NAME}
+cp -r ${SOURCE_DIR}/views/ ${TARGET_DIR}/views/
+INITD=$(cat ${SOURCE_DIR}/etc/init.d/app)
+touch ${TARGET_DIR}/etc/init.d/${APP_NAME}
+echo "${INITD}" | sed "s/APP_NAME/${APP_NAME}/g"  > ${TARGET_DIR}/etc/init.d/${APP_NAME}
 cp ${SOURCE_DIR}/app.js ${TARGET_DIR}/${APP_NAME}.js
 
 cp ${SOURCE_DIR}/lib/*.js ${TARGET_DIR}/lib/
