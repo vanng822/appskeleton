@@ -1,10 +1,9 @@
 var pstarter = require('pstarter');
-var config = require('./config');
 
-pstarter.startMaster(config).startWorker(function() {
+pstarter.startMaster(__dirname + '/config').startWorker(function() {
+	var config = require('./config');
 	var express = require('express');
 	var app = express();
-	
 	var http = require('http');
 	var server = http.createServer(app);
 	var bootstrap = require('./app/bootstrap.js');
