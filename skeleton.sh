@@ -24,7 +24,7 @@ mkdir ${TARGET_DIR}/config
 mkdir -p ${TARGET_DIR}/etc/init.d
 mkdir ${TARGET_DIR}/lib
 mkdir -p ${TARGET_DIR}/public/css
-mkdir -p ${TARGET_DIR}/public/img
+mkdir -p ${TARGET_DIR}/public/img/icons
 mkdir -p ${TARGET_DIR}/public/js
 mkdir ${TARGET_DIR}/scripts
 mkdir ${TARGET_DIR}/views
@@ -49,6 +49,7 @@ cp ${SOURCE_DIR}/public/js/app.js ${TARGET_DIR}/public/js/${APP_NAME}.js
 cp ${SOURCE_DIR}/public/img/icons/loading.gif ${TARGET_DIR}/public/img/icons/
 
 touch ${TARGET_DIR}/pstarter.pid
+mkdir ${TARGET_DIR}/public/img/dist
 
 cd ${TARGET_DIR} && npm install
 
@@ -69,9 +70,11 @@ if [ "$ADD_GIT" = "1" ]; then
 fi
 
 cd ${SOURCE_DIR}
-echo "Every thing done! go to ${TARGET_DIR}"
-echo "And run. It should work directly"
-echo "node {APP_NAME}.js NODE_ENV=development"
+echo "Every thing done!"
+echo "go to ${TARGET_DIR}"
+echo "And run"
+echo "node ${APP_NAME}.js NODE_ENV=development"
+echo "It should work directly!"
 
 
 
