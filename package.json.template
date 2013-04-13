@@ -9,7 +9,9 @@
 		"pstarter" : "*",
 		"vnfconfig": "*",
 		"emptygif": "*",
-		"pagination" : "*"
+		"pagination" : "*",
+		"generic-pool": "*",
+		"redis": "*"
 	},
 	"version": "0.0.0"
 }
