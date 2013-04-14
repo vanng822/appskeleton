@@ -13,3 +13,7 @@ I do this every time and get tired of it.
 	#node your_app_name.js NODE_ENV=production
 	
 	## open in webbrowser http://127.0.0.1:3000/
+	
+## Issues/Notes
+* Need to create img/dist, css/dist js/dist and give permissions to user that runs application, ie ww-data
+* Need to configure etc/init.d/APP_NAME for production if using linux such as Ubuntu. See https://github.com/vanng822/pstarter#start-with-init-script-on-ubuntu
