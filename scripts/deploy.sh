@@ -50,12 +50,11 @@ done
 SPEC_FILE=${SOURCE_DIR}scripts/files.spec
 
 RELEASE=$(./version.sh ${SOURCE_DIR})
-FILE_LIST=$( cat $SPEC_FILE )
 RELEASE_FILE=${RELEASE}.zip
 
 if [ "$DO_RELEASE" = "1" ]; then
 
-	./release.sh $SOURCE_DIR $RELEASE_DIR $SPEC_FILE $RELEASE
+	./release.sh $SOURCE_DIR $RELEASE_DIR $SPEC_FILE $RELEASE_FILE
 	
 	res=$?
 	
