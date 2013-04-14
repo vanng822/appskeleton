@@ -47,8 +47,21 @@ cp ${SOURCE_DIR}/public/css/app.css ${TARGET_DIR}/public/css/${APP_NAME}.css
 cp ${SOURCE_DIR}/public/js/app.js ${TARGET_DIR}/public/js/${APP_NAME}.js
 cp ${SOURCE_DIR}/public/img/icons/loading.gif ${TARGET_DIR}/public/img/icons/
 
+
+cp ${SOURCE_DIR}/scripts/release.sh ${TARGET_DIR}/scripts/release.sh
+cp ${SOURCE_DIR}/scripts/version.sh ${TARGET_DIR}/scripts/version.sh
+RELEASE_FILE_TEMPLATE=$(cat ${SOURCE_DIR}/scripts/files.spec)
+touch ${TARGET_DIR}/scripts/files.spec
+echo "${RELEASE_FILE_TEMPLATE}" | sed "s/APP_NAME/${APP_NAME}/g"  > ${TARGET_DIR}/scripts/files.spec
+DEPLOY_TEMPLATE=$(cat ${SOURCE_DIR}/scripts/deploy.sh)
+touch ${TARGET_DIR}/scripts/deploy.sh
+TARGET_DIR_ESCAPE=$(echo ${TARGET_DIR} | sed 's/\//\\\//g')
+echo "${DEPLOY_TEMPLATE}" | sed "s/APP_TARGET_DIR/${TARGET_DIR_ESCAPE}/g" | sed "s/APP_NAME/${APP_NAME}/g" > ${TARGET_DIR}/scripts/deploy.sh
+chmod u+x ${TARGET_DIR}/scripts/deploy.sh
+
 touch ${TARGET_DIR}/pstarter.pid
 mkdir ${TARGET_DIR}/public/img/dist
+mkdir ${TARGET_DIR}/releases
 
 cd ${TARGET_DIR} && npm install
 
@@ -56,6 +69,7 @@ if [ "$ADD_GIT" = "1" ]; then
 	echo "Adding files to git repo"
 	touch ${TARGET_DIR}/.gitignore
 	echo ".project" > ${TARGET_DIR}/.gitignore
+	echo "releases/*" >> ${TARGET_DIR}/.gitignore
 	echo "node_modules/*" >> ${TARGET_DIR}/.gitignore
 	echo "pstarter.pid" >> ${TARGET_DIR}/.gitignore
 	echo "public/img/dist/*" >> ${TARGET_DIR}/.gitignore
@@ -71,6 +85,7 @@ if [ "$ADD_GIT" = "1" ]; then
 	git add ${TARGET_DIR}/public/img/icons/loading.gif
 	git add ${TARGET_DIR}/lib/*
 	git add ${TARGET_DIR}/views/*
+	git add ${TARGET_DIR}/scripts/*
 	echo "Added all to git repo"
 fi
 
