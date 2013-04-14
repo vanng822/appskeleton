@@ -75,6 +75,8 @@ if [ "$DO_RELEASE" = "1" ]; then
 		exit 1
 	fi
 	
+	echo "Distributed the release to server"
+	
 	ssh $SSH_CONNECT "cd ${RELEASE_TARGET} && rm -fr ${RELEASE_TARGET}pack/* && unzip -qo ${RELEASE_TARGET}${RELEASE_FILE} -d ${RELEASE_TARGET}pack && cp -r ${RELEASE_TARGET}/pack/* -t ${TARGET}"
 
 	res=$?
@@ -83,6 +85,8 @@ if [ "$DO_RELEASE" = "1" ]; then
 		echo "Could not distribute the release into target"
 		exit 1
 	fi
+	
+	echo "Distributed the release into target"
 
 fi 
 
@@ -94,15 +98,17 @@ if [ "$NPM_INSTALL" = "1" ]; then
 		echo "Could not run npm install"
 		exit 1
 	fi
+	
+	echo "npm install done"
 fi
 
 if [ "$START_ACTION" != "" ]; then
 	case "$START_ACTION" in
 		start)
-			ssh $SSH_COMMAND 'sudo /etc/init.d/currebas start'
+			ssh $SSH_COMMAND 'sudo /etc/init.d/APP_NAME start'
 			;;
 		stop)
-			ssh $SSH_COMMAND 'sudo /etc/init.d/currebas stop'
+			ssh $SSH_COMMAND 'sudo /etc/init.d/APP_NAME stop'
 			;;
 		force-restart)
 			ssh $SSH_COMMAND 'sudo /etc/init.d/APP_NAME force-restart'
