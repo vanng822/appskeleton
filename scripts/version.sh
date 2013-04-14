@@ -1,5 +1,5 @@
 ROOT=.
-if [ "$#" -eq 2 ]; then
+if [ "$#" -eq 1 ]; then
 	ROOT=$1
 fi
 
