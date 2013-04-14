@@ -1,8 +1,20 @@
 #!/bin/bash
 
+
+###=== NEED TO FILL ===
+## fill in connection to server
+RELEASE_TARGET=FOLDER_ON_SERVER_FOR_STORE_RELEASE
+TARGET=FOLDER_WHERE_APP_WILL_UNPACK_AND_RUN
+## Have permission to write
+SSH_CONNECT=CONNECT_INFO
+## have permission to run /etc/init.d/APP_NAME
+SSH_COMMAND=COMMAND_INFO
+
+###=== NO NEED TO TOUCH those bellow ===
+
+
 START_ACTION=""
-BUILD_RELEASE=""
-RELEASE=""
+DO_RELEASE=""
 NPM_INSTALL=""
 
 usage() {
@@ -23,7 +35,7 @@ do
 			NPM_INSTALL=1
 			;;
 		r)
-			RELEASE=1
+			DO_RELEASE=1
 			;;
 		?)
 			usage
@@ -34,12 +46,6 @@ done
 
 SOURCE_DIR=APP_TARGET_DIR/
 RELEASE_DIR=APP_TARGET_DIR/releases/
-RELEASE_TARGET=FOLDER_ON_SERVER_FOR_STORE_RELEASE
-TARGET=FOLDER_WHERE_APP_WILL_UNPACK_AND_RUN
-
-## fill in connection to server
-SSH_CONNECT=CONNECT_INFO
-SSH_COMMAND=COMMAND_INFO
 
 SPEC_FILE=${SOURCE_DIR}scripts/files.spec
 
@@ -47,7 +53,7 @@ RELEASE=$(./version.sh ${SOURCE_DIR})
 FILE_LIST=$( cat $SPEC_FILE )
 RELEASE_FILE=${RELEASE}.zip
 
-if [ "$RELEASE" = "1" ]; then
+if [ "$DO_RELEASE" = "1" ]; then
 
 	./release.sh $SOURCE_DIR $RELEASE_DIR $SPEC_FILE $RELEASE
 	
@@ -79,6 +85,16 @@ if [ "$RELEASE" = "1" ]; then
 	fi
 
 fi 
+
+if [ "$NPM_INSTALL" = "1" ]; then
+	ssh $SSH_CONNECT "cd ${TARGET} && npm install"
+	res=$?
+	
+	if [ ! $res -eq 0 ]; then
+		echo "Could not run npm install"
+		exit 1
+	fi
+fi
 
 if [ "$START_ACTION" != "" ]; then
 	case "$START_ACTION" in
