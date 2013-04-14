@@ -12,6 +12,9 @@ SSH_COMMAND=COMMAND_INFO
 
 ###=== NO NEED TO TOUCH those bellow ===
 
+SOURCE_DIR=APP_TARGET_DIR/
+RELEASE_DIR=APP_TARGET_DIR/releases/
+
 
 START_ACTION=""
 DO_RELEASE=""
@@ -43,9 +46,6 @@ do
 			;;
 	esac
 done
-
-SOURCE_DIR=APP_TARGET_DIR/
-RELEASE_DIR=APP_TARGET_DIR/releases/
 
 SPEC_FILE=${SOURCE_DIR}scripts/files.spec
 
@@ -98,6 +98,12 @@ fi
 
 if [ "$START_ACTION" != "" ]; then
 	case "$START_ACTION" in
+		start)
+			ssh $SSH_COMMAND 'sudo /etc/init.d/currebas start'
+			;;
+		stop)
+			ssh $SSH_COMMAND 'sudo /etc/init.d/currebas stop'
+			;;
 		force-restart)
 			ssh $SSH_COMMAND 'sudo /etc/init.d/APP_NAME force-restart'
 			;;
