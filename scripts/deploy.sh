@@ -6,7 +6,7 @@ RELEASE=""
 NPM_INSTALL=""
 
 usage() {
-	echo "Usage: deploy.sh -h, -a release|graceful|restart|force-restart, -i => npm install, -r => release, -ri => do all three"
+	echo "Usage: deploy.sh -h, -a release|graceful|restart|force-restart, -i => npm install, -r => release, -ri => do all two"
 }
 
 while getopts "a:hirb" OPTION
