@@ -5,7 +5,7 @@ var Base = function(app) {
 Base.METATAGS_VARNAME = 'metaTags';
 Base.prototype = {
 	setup : function(app) {
-		
+		throw new Error('Please implement setup');
 	},
 	getMetaTags : function(res) {
 		var metaTags = res.locals[Base.METATAGS_VARNAME];
