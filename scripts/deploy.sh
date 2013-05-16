@@ -19,12 +19,13 @@ RELEASE_DIR=APP_TARGET_DIR/releases/
 START_ACTION=""
 DO_RELEASE=""
 NPM_INSTALL=""
+NPM_UPDATE=""
 
 usage() {
-	echo "Usage: deploy.sh -h, -a release|graceful|restart|force-restart, -i => npm install, -r => release, -ri => do all two"
+	echo "Usage: deploy.sh -h, -a release|graceful|restart|force-restart, -i => npm install, -u => npm update, -r => release, -ri => do all two"
 }
 
-while getopts "a:hirb" OPTION
+while getopts "a:hirbu" OPTION
 do
 	case $OPTION in
 		h)
@@ -36,6 +37,9 @@ do
 			;;
 		i)
 			NPM_INSTALL=1
+			;;
+		u)
+			NPM_UPDATE=1
 			;;
 		r)
 			DO_RELEASE=1
@@ -99,6 +103,18 @@ if [ "$NPM_INSTALL" = "1" ]; then
 	fi
 	
 	echo "npm install done"
+fi
+
+if [ "$NPM_UPDATE" = "1" ]; then
+	ssh $SSH_CONNECT "cd ${TARGET} && npm update"
+	res=$?
+	
+	if [ ! $res -eq 0 ]; then
+		echo "Could not run npm update"
+		exit 1
+	fi
+	
+	echo "npm update done"
 fi
 
 if [ "$START_ACTION" != "" ]; then
