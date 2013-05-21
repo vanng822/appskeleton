@@ -32,11 +32,13 @@ stop_server() {
 	echo "Stop node server"
 	PID=$(cat $PID_FILE)
 	kill $PID > /dev/null &2>&1
-	#while [ "$PID" != "" ]; do
-	#	sleep 0.1
-	#	PID=$(cat $PID_FILE)
-	#done
-	echo "Node server stopped!"
+	
+	if [ "$?" = "0" ]; then
+		echo "Server stopped!"
+		exit 1
+	else
+		echo "Could not stop server"
+	fi
 }
 
 start_server() {
