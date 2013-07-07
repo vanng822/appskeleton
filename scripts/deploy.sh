@@ -20,9 +20,10 @@ START_ACTION=""
 DO_RELEASE=""
 NPM_INSTALL=""
 NPM_UPDATE=""
+LINK_INITD=""
 
 usage() {
-	echo "Usage: deploy.sh -h, -a release|graceful|restart|force-restart, -i => npm install, -u => npm update, -r => release, -ri => do all two"
+	echo "Usage: deploy.sh -h, -a release|graceful|restart|force-restart, -l => create init.d symbolic link, -i => npm install, -u => npm update, -r => release, -ri => do all two"
 }
 
 while getopts "a:hirbu" OPTION
@@ -43,6 +44,9 @@ do
 			;;
 		r)
 			DO_RELEASE=1
+			;;
+		l)
+			LINK_INITD=1
 			;;
 		?)
 			usage
@@ -115,6 +119,11 @@ if [ "$NPM_UPDATE" = "1" ]; then
 	fi
 	
 	echo "npm update done"
+fi
+
+if [ "$LINK_INITD" != "" ]; then
+	ssh $SSH_COMMAND "sudo ln -s ${TARGET}/etc/init.d/APP_NAME /etc/init.d/APP_NAME"
+	ssh $SSH_COMMAND "sudo cd /etc/init.d/ && sudo update-rc.d APP_NAME defaults"
 fi
 
 if [ "$START_ACTION" != "" ]; then
