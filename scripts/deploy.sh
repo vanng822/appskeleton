@@ -53,7 +53,7 @@ done
 
 SPEC_FILE=${SOURCE_DIR}scripts/files.spec
 
-RELEASE=$(./version.sh ${SOURCE_DIR})
+RELEASE=$(./version.sh)
 RELEASE_FILE=${RELEASE}.zip
 
 if [ "$DO_RELEASE" = "1" ]; then
