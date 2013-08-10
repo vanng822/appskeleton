@@ -25,6 +25,7 @@ mkdir -p ${TARGET_DIR}/public/img/icons
 mkdir -p ${TARGET_DIR}/public/js
 mkdir ${TARGET_DIR}/scripts
 mkdir ${TARGET_DIR}/views
+mkdir ${TARGET_DIR}/tests
 
 cp ${SOURCE_DIR}/app/*.js ${TARGET_DIR}/app/
 cp ${SOURCE_DIR}/config/*.js ${TARGET_DIR}/config/
@@ -62,6 +63,7 @@ chmod u+x ${TARGET_DIR}/scripts/deploy.sh
 touch ${TARGET_DIR}/pstarter.pid
 mkdir ${TARGET_DIR}/public/img/dist
 mkdir ${TARGET_DIR}/releases
+touch  ${TARGET_DIR}/tests/index.js
 
 cd ${TARGET_DIR} && npm install
 
@@ -86,6 +88,7 @@ if [ "$ADD_GIT" = "1" ]; then
 	git add ${TARGET_DIR}/lib/*
 	git add ${TARGET_DIR}/views/*
 	git add ${TARGET_DIR}/scripts/*
+	git add ${TARGET_DIR}/tests/*
 	echo "Added all to git repo"
 fi
 
