@@ -1,7 +1,7 @@
 
-./app/base.js
 ./app/bootstrap.js
-./app/index.js
+./app/routehandlers/base.js
+./app/routehandlers/index.js
 
 ./config/all.js
 ./config/index.js
