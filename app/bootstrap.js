@@ -1,10 +1,25 @@
 var express = require('express');
 var staticHandler = require('jcash');
-var Index = require('./index.js');
 var ejs = require('ejs');
+var fs = require('fs');
 var config = require('../config');
 var mobile = require('../lib/mobile.js');
 var template = require('../lib/template.js');
+
+var Base = require('./routehandlers/base.js');
+
+
+var isHandler = function(Handler) {
+	if (Handler) {
+		while(Handler.super_) {
+			Handler = Handler.super_;
+		}
+		if (Handler === Base) {
+			return true;
+		}
+	}
+	return false;
+}
 
 module.exports.setupApp = function(app, basedir) {
 	var jsManager, cssManager, block, location;
@@ -54,7 +69,26 @@ module.exports.setupApp = function(app, basedir) {
 };
 
 module.exports.bootstrap = function(appl) {
-	new Index(appl);
+	var handlers = [];
+	var files = fs.readdirSync(__dirname + '/routehandlers');
+	files.forEach(function(filename) {
+		if (filename == 'base.js') {
+			return;
+		}
+		try {
+			var Handler = require('./routehandlers/' + filename);
+			if (Object.keys(Handler).length != 1) {
+				throw new Error('Please have one handler in each file');
+			}
+			if (isHandler(Handler)) {
+				handlers.push(new Handler(appl));
+			} else {
+				console.log('Implementation is not a handle in filename', filename, 'They should inherits from Base. Use util.inherits');
+			}
+		} catch (e) {
+			console.error(e);
+		}
+	});
 };
 
 module.exports.postrun = function() {

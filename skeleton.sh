@@ -27,7 +27,7 @@ mkdir ${TARGET_DIR}/scripts
 mkdir ${TARGET_DIR}/views
 mkdir ${TARGET_DIR}/tests
 
-cp ${SOURCE_DIR}/app/*.js ${TARGET_DIR}/app/
+cp -r ${SOURCE_DIR}/app/* ${TARGET_DIR}/app/
 cp ${SOURCE_DIR}/config/*.js ${TARGET_DIR}/config/
 ALL_CONFIG=$(cat ${SOURCE_DIR}/config/all.js)
 echo "${ALL_CONFIG}" | sed "s/APP_NAME/${APP_NAME}/g"  > ${TARGET_DIR}/config/all.js
