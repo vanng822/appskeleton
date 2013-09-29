@@ -10,11 +10,12 @@ var Base = require('./routehandlers/base.js');
 
 
 var isHandler = function(Handler) {
-	if (Handler) {
-		while(Handler.super_) {
-			Handler = Handler.super_;
+	var handler = Handler;
+	if (handler) {
+		while(handler.super_) {
+			handler = handler.super_;
 		}
-		if (Handler === Base) {
+		if (handler === Base) {
 			return true;
 		}
 	}
