@@ -15,10 +15,9 @@ pstarter.startMaster(__dirname + '/config', {}, function() {
 	var bootstrap = require('./app/bootstrap.js');
 	bootstrap.setupApp(app, __dirname);
 	bootstrap.bootstrap(app);
-	server.listen(config.http.port, config.http.host, function() {
-		bootstrap.postrun();
-	});
-	
+	bootstrap.postrun();
+	server.listen(config.http.port, config.http.host);
+	/* Counting request */
 	server.on('request', function(req, res) {
 		process.send({
 			cmd : pstarter.cmd.requestCount
