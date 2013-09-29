@@ -73,12 +73,12 @@ module.exports.bootstrap = function(appl) {
 	var handlers = [];
 	var files = fs.readdirSync(__dirname + '/routehandlers');
 	files.forEach(function(filename) {
-		if (filename == 'base.js') {
+		if (filename === 'base.js') {
 			return;
 		}
 		try {
 			var Handler = require('./routehandlers/' + filename);
-			if (Object.keys(Handler).length != 1) {
+			if (Object.keys(Handler).length !== 1) {
 				throw new Error('Please have one handler in each file');
 			}
 			if (isHandler(Handler)) {

@@ -3,7 +3,7 @@ var pstarter = require('pstarter');
 pstarter.startMaster(__dirname + '/config', {}, function() {
 	var config = require('./config');
 	pstarter.statServer(config.http.statPort, config.http.statHost);
-	if (process.env['NODE_ENV'] && process.env['NODE_ENV'] == 'development') {
+	if (process.env['NODE_ENV'] && process.env['NODE_ENV'] === 'development') {
 		pstarter.startWatch(__dirname, [__dirname +'/node_modules'], ['.js', '.json', '.html', '.css']);
 	}
 }).startWorker(function() {
