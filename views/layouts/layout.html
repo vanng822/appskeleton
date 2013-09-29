@@ -59,14 +59,12 @@ $(function(){
 });
 </script>
 <%- renderBottomScripts() %>
-<script src="http://webperf.isgoodness.com/webperf.js" type="text/javascript"></script>
 <script type="text/javascript">
+/* var _webperfAccount = 'YOUR_SITE_URL';*/
 (function() {
-	function webperf() {
-		WebPerf.account('igeonote.com');
-		WebPerf.perform();
-	};
-	window.addEventListener('load', webperf, false);
+	var webperf = document.createElement('script'); webperf.type = 'text/javascript'; webperf.async = true;
+	webperf.src = 'http://webperf.isgoodness.com/webperf.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(webperf, s);
 })();
 </script>
 </body>
