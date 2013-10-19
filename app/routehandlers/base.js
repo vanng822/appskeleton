@@ -18,7 +18,7 @@ Base.prototype = {
 				if (typeof self[method] === 'function') {
 					app[lMethod](self.route, self[method].bind(self));
 					count++;
-				} else if (typeof self[lMethod] == 'function') {
+				} else if (typeof self[lMethod] === 'function') {
 					app[lMethod](self.route, self[lMethod].bind(self));
 					count++;
 				}
