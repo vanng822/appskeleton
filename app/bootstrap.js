@@ -2,12 +2,14 @@ var express = require('express');
 var staticHandler = require('jcash');
 var ejs = require('ejs');
 var fs = require('fs');
+var path = require('path');
 var config = require('../config');
 var mobile = require('../lib/mobile.js');
 var template = require('../lib/template.js');
 
 var Base = require('./routehandlers/base.js');
 
+var handlers = [];
 
 var isHandler = function(Handler) {
 	var handler = Handler;
@@ -20,7 +22,39 @@ var isHandler = function(Handler) {
 		}
 	}
 	return false;
-}
+};
+
+var scanHandlers = function(app, dir) {
+	var dir = path.normalize(dir);
+	var files = fs.readdirSync(dir);
+	
+	files.forEach(function(filename) {
+		if (filename === 'base.js') {
+			return;
+		}
+		var stat = fs.statSync(dir + '/'+ filename);
+		
+		if (stat.isDirectory()) {
+			scanHandlers(app, dir + '/'+ filename);
+		}
+		
+		try {
+			var Handler = require(dir + '/' + filename);
+			if (Object.keys(Handler).length !== 1) {
+				throw new Error('Please have one handler in each file');
+			}
+			if (isHandler(Handler)) {
+				handlers.push(new Handler(app));
+			} else {
+				console.log('Implementation is not a handle in filename', filename, 'They should inherits from Base. Use util.inherits');
+			}
+		} catch (e) {
+			console.error(e);
+		}
+	});
+};
+
+
 
 module.exports.setupApp = function(app, basedir) {
 	var jsManager, cssManager, block, location;
@@ -70,27 +104,8 @@ module.exports.setupApp = function(app, basedir) {
 };
 
 module.exports.bootstrap = function(appl) {
-	var handlers = [];
-	var files = fs.readdirSync(__dirname + '/routehandlers');
-	files.forEach(function(filename) {
-		if (filename === 'base.js') {
-			return;
-		}
-		try {
-			var Handler = require('./routehandlers/' + filename);
-			if (Object.keys(Handler).length !== 1) {
-				throw new Error('Please have one handler in each file');
-			}
-			if (isHandler(Handler)) {
-				handlers.push(new Handler(appl));
-			} else {
-				console.log('Implementation is not a handle in filename', filename, 'They should inherits from Base. Use util.inherits');
-			}
-		} catch (e) {
-			console.error(e);
-		}
-	});
-};
+	scanHandlers(appl, __dirname + '/routehandlers')
+}; 
 
 module.exports.postrun = function() {
 	var jsManager, cssManager, imageManager;
