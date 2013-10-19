@@ -12,17 +12,6 @@ IndexBootstrap.prototype.setup = function(app) {
 	app.get('/', function(req, res) {
 		self.indexAction(req, res);
 	});
-	app.get('/robots.txt', function(req, res) {
-		self.robotstxtAction(req, res);
-	});
-};
-
-IndexBootstrap.prototype.robotstxtAction = function(req, res) {
-	res.setHeader('Content-Type', 'text/plain');
-	res.render('index/robotstxt.html', {
-		layout : false,
-		eatspace : false
-	});
 };
 
 IndexBootstrap.prototype.indexAction = function(req, res) {
