@@ -15,24 +15,31 @@ if [ "$#" -eq 3 ]; then
 		ADD_GIT=1
 	fi
 fi
-mkdir ${TARGET_DIR}/app
+
+## create top directory structure
 mkdir ${TARGET_DIR}/bin
 mkdir ${TARGET_DIR}/config
 mkdir -p ${TARGET_DIR}/etc/init.d
 mkdir ${TARGET_DIR}/lib
-mkdir -p ${TARGET_DIR}/public/css
-mkdir -p ${TARGET_DIR}/public/img/icons
-mkdir -p ${TARGET_DIR}/public/js
+mkdir -p ${TARGET_DIR}/app/public/css
+mkdir -p ${TARGET_DIR}/app/public/img/icons
+mkdir -p ${TARGET_DIR}/app/public/js
+mkdir ${TARGET_DIR}/app/views
+mkdir ${TARGET_DIR}/app/routehandlers
 mkdir ${TARGET_DIR}/scripts
-mkdir ${TARGET_DIR}/views
 mkdir ${TARGET_DIR}/tests
 
-cp -r ${SOURCE_DIR}/app/* ${TARGET_DIR}/app/
+cp -r ${SOURCE_DIR}/app/routehandlers/* ${TARGET_DIR}/app/routehandlers/
+cp -r ${SOURCE_DIR}/app/views/ ${TARGET_DIR}/app/views/
+cp ${SOURCE_DIR}/app/bootstrap.js ${TARGET_DIR}/app/bootstrap.js
+cp ${SOURCE_DIR}/app/public/css/app.css ${TARGET_DIR}/app/public/css/${APP_NAME}.css
+cp ${SOURCE_DIR}/app/public/js/app.js ${TARGET_DIR}/app/public/js/${APP_NAME}.js
+cp ${SOURCE_DIR}/app/public/img/icons/loading.gif ${TARGET_DIR}/app/public/img/icons/
+
 cp ${SOURCE_DIR}/config/*.js ${TARGET_DIR}/config/
 ALL_CONFIG=$(cat ${SOURCE_DIR}/config/all.js)
 echo "${ALL_CONFIG}" | sed "s/APP_NAME/${APP_NAME}/g"  > ${TARGET_DIR}/config/all.js
 
-cp -r ${SOURCE_DIR}/views/ ${TARGET_DIR}/views/
 INITD=$(cat ${SOURCE_DIR}/etc/init.d/app)
 touch ${TARGET_DIR}/etc/init.d/${APP_NAME}
 echo "${INITD}" | sed "s/APP_NAME/${APP_NAME}/g"  > ${TARGET_DIR}/etc/init.d/${APP_NAME}
@@ -43,10 +50,6 @@ cp ${SOURCE_DIR}/lib/*.js ${TARGET_DIR}/lib/
 PACKAGE_TEMPLATE=$(cat ${SOURCE_DIR}/package.json.template)
 touch ${TARGET_DIR}/package.json
 echo "${PACKAGE_TEMPLATE}" | sed "s/APP_NAME/${APP_NAME}/g"  > ${TARGET_DIR}/package.json
-
-cp ${SOURCE_DIR}/public/css/app.css ${TARGET_DIR}/public/css/${APP_NAME}.css
-cp ${SOURCE_DIR}/public/js/app.js ${TARGET_DIR}/public/js/${APP_NAME}.js
-cp ${SOURCE_DIR}/public/img/icons/loading.gif ${TARGET_DIR}/public/img/icons/
 
 
 cp ${SOURCE_DIR}/scripts/release.sh ${TARGET_DIR}/scripts/release.sh
@@ -61,7 +64,7 @@ echo "${DEPLOY_TEMPLATE}" | sed "s/APP_TARGET_DIR/${TARGET_DIR_ESCAPE}/g" | sed 
 chmod u+x ${TARGET_DIR}/scripts/deploy.sh
 
 touch ${TARGET_DIR}/pstarter.pid
-mkdir ${TARGET_DIR}/public/img/dist
+mkdir ${TARGET_DIR}/app/public/img/dist
 mkdir ${TARGET_DIR}/releases
 touch  ${TARGET_DIR}/tests/index.js
 
@@ -82,11 +85,7 @@ if [ "$ADD_GIT" = "1" ]; then
 	git add ${TARGET_DIR}/config/*
 	git add ${TARGET_DIR}/etc/init.d/${APP_NAME}
 	git add ${TARGET_DIR}/${APP_NAME}.js
-	git add ${TARGET_DIR}/public/css
-	git add ${TARGET_DIR}/public/js
-	git add ${TARGET_DIR}/public/img/icons/loading.gif
 	git add ${TARGET_DIR}/lib/*
-	git add ${TARGET_DIR}/views/*
 	git add ${TARGET_DIR}/scripts/*
 	git add ${TARGET_DIR}/tests/*
 	echo "Added all to git repo"

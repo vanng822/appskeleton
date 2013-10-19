@@ -58,24 +58,24 @@ var scanHandlers = function(app, dir) {
 
 module.exports.setupApp = function(app, basedir) {
 	var jsManager, cssManager, block, location;
-	
+	var basedir = path.normalize(basedir);
 	app.configure('development', 'production', function() {
 		app.engine('html', ejs.__express);
 		app.set('view engine', 'html');
-		app.set('views', basedir + '/views');
+		app.set('views', basedir + '/app/views');
 		app.use(express.favicon());
 		app.use(express.bodyParser());
 		app.use(mobile.detect());
 		staticHandler.globalSettings({
 			active : true,
 			inmemory : true,
-			pathJs : basedir + '/public/js',
-			pathCss:  basedir + '/public/css',
+			pathJs : basedir + '/app/public/js',
+			pathCss:  basedir + '/app/public/css',
 			maxAgeCss : config.http.static.maxAge,
 			maxAgeJs : config.http.static.maxAge
 		});
 		app.use(staticHandler.jcash());
-		app.use(express.static(basedir + '/public', {
+		app.use(express.static(basedir + '/app/public', {
 			maxAge : config.http.static.maxAge
 		}));
 		
@@ -100,7 +100,7 @@ module.exports.setupApp = function(app, basedir) {
 	cssManager = staticHandler.getCssManager();
 	jsManager.parseConfig(config.js);
 	cssManager.parseConfig(config.css);
-	imageManager = staticHandler.getImageManager({path : basedir + '/public/img', hasGm : true});
+	imageManager = staticHandler.getImageManager({path : basedir + '/app/public/img', hasGm : true});
 };
 
 module.exports.bootstrap = function(appl) {
