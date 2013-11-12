@@ -19,7 +19,7 @@
 
 ./lib/breadcrumb.js
 ./lib/mobile.js
-./lib/pools.js
+./lib/pool.js
 ./lib/template.js
 
 
