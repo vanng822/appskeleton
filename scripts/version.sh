@@ -1,2 +1,6 @@
 VERSION=$(git rev-parse --short HEAD)
-echo $VERSION
+if [ "$VERSION" != "" ]; then
+	echo $VERSION
+else
+	echo "1"
+fi
