@@ -4,7 +4,7 @@ module.exports = {
 			'APP_NAME' : ['APP_NAME.js']
 		},
 		urls : {
-			'jQuery' : ['http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js']
+			'jQuery' : ['//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js']
 		},
 		locationMap : {
 			'*' : ['jQuery', 'APP_NAME']
