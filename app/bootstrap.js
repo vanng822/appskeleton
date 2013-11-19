@@ -100,7 +100,7 @@ module.exports.setupApp = function(app, basedir) {
 	cssManager = staticHandler.getCssManager();
 	jsManager.parseConfig(config.js);
 	cssManager.parseConfig(config.css);
-	imageManager = staticHandler.getImageManager({path : basedir + '/app/public/img', hasGm : true});
+	imageManager = staticHandler.getImageManager({path : basedir + '/app/public/img', hasGm : false});
 };
 
 module.exports.bootstrap = function(appl) {
