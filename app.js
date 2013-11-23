@@ -1,3 +1,4 @@
+var pstarter = require('pstarter');
 var worker = function() {
 	var config = require('./config');
 	var express = require('express');
@@ -15,7 +16,6 @@ var worker = function() {
 if('worker' in process.env) {
 	worker();
 } else {
-	var pstarter = require('pstarter');
 	pstarter.startMaster(__dirname + '/config', {}, function() {
 		var config = require('./config');
 		pstarter.statServer(config.http.statPort, config.http.statHost);
