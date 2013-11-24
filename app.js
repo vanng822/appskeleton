@@ -10,11 +10,12 @@ var worker = function() {
 	bootstrap.bootstrap(app);
 	bootstrap.postrun();
 	server.listen(config.http.port, config.http.host);
+	return server;
 };
 
 /* run only one single process and worker for debug */
 if('worker' in process.env) {
-	worker();
+	var server = worker();
 } else {
 	pstarter.startMaster(__dirname + '/config', {}, function() {
 		var config = require('./config');
@@ -24,7 +25,7 @@ if('worker' in process.env) {
 		}
 
 	}).startWorker(function() {
-		worker();
+		var server = worker();
 		/* Counting request */
 		server.on('request', function(req, res) {
 			process.send({
