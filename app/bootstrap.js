@@ -3,10 +3,11 @@ var staticHandler = require('jcash');
 var ejs = require('ejs');
 var fs = require('fs');
 var path = require('path');
-var config = require('../config');
-var mobile = require('../lib/mobile.js');
-var template = require('../lib/template.js');
-
+var appRequire = require('app-require');
+var config = appRequire.requireConfig();
+var libs = appRequire.requireLib();
+var mobile = libs.mobile;
+var template = libs.template;
 var Base = require('./routehandlers/base.js');
 
 var handlers = [];

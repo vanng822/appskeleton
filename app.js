@@ -1,6 +1,7 @@
 var pstarter = require('pstarter');
+var appRequire = require('app-require');
 var worker = function() {
-	var config = require('./config');
+	var config = appRequire.requireConfig();
 	var express = require('express');
 	var app = express();
 	var http = require('http');
@@ -18,7 +19,7 @@ if('worker' in process.env) {
 	var server = worker();
 } else {
 	pstarter.startMaster(__dirname + '/config', {}, function() {
-		var config = require('./config');
+		var config = appRequire.requireConfig();
 		pstarter.statServer(config.http.statPort, config.http.statHost);
 		if(process.env['NODE_ENV'] && process.env['NODE_ENV'] === 'development') {
 			pstarter.startWatch(__dirname, [__dirname + '/node_modules'], ['.js', '.json', '.html', '.css']);

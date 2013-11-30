@@ -10,6 +10,7 @@
 		"vnfconfig": "*",
 		"emptygif": "*",
 		"pagination" : "*",
+		"app-require":"*",
 		"generic-pool": "*",
 		"redis": "*"
 	},
