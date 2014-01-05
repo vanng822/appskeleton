@@ -12,7 +12,8 @@
 		"pagination" : "*",
 		"app-require":"*",
 		"generic-pool": "*",
-		"redis": "*"
+		"redis": "*",
+		"rlock": "*"
 	},
 	"version": "0.0.0"
 }

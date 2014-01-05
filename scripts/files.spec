@@ -19,7 +19,6 @@
 
 ./lib/breadcrumb.js
 ./lib/mobile.js
-./lib/lock.js
 ./lib/pool.js
 ./lib/template.js
 
