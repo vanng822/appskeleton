@@ -20,6 +20,7 @@ fi
 mkdir ${TARGET_DIR}/bin
 mkdir ${TARGET_DIR}/config
 mkdir -p ${TARGET_DIR}/etc/init.d
+mkdir -p ${TARGET_DIR}/etc/nginx
 mkdir ${TARGET_DIR}/lib
 mkdir -p ${TARGET_DIR}/app/public/css
 mkdir -p ${TARGET_DIR}/app/public/img/icons
@@ -44,6 +45,10 @@ INITD=$(cat ${SOURCE_DIR}/etc/init.d/app)
 touch ${TARGET_DIR}/etc/init.d/${APP_NAME}
 echo "${INITD}" | sed "s/APP_NAME/${APP_NAME}/g"  > ${TARGET_DIR}/etc/init.d/${APP_NAME}
 cp ${SOURCE_DIR}/app.js ${TARGET_DIR}/${APP_NAME}.js
+
+NGINXCONF=$(cat ${SOURCE_DIR}/etc/nginx/app.conf)
+touch ${TARGET_DIR}/etc/nginx/${APP_NAME}.conf
+echo "${NGINXCONF}" | sed "s/APP_NAME/${APP_NAME}/g"  > ${TARGET_DIR}/etc/nginx/${APP_NAME}.conf
 
 cp ${SOURCE_DIR}/lib/*.js ${TARGET_DIR}/lib/
 
@@ -84,6 +89,7 @@ if [ "$ADD_GIT" = "1" ]; then
 	git add ${TARGET_DIR}/app/*
 	git add ${TARGET_DIR}/config/*
 	git add ${TARGET_DIR}/etc/init.d/${APP_NAME}
+	git add ${TARGET_DIR}/etc/nginx/${APP_NAME}.conf
 	git add ${TARGET_DIR}/${APP_NAME}.js
 	git add ${TARGET_DIR}/lib/*
 	git add ${TARGET_DIR}/scripts/*
