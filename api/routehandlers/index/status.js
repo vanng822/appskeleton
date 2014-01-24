@@ -1,4 +1,4 @@
-var Base = require('./base.js');
+var Base = require('../base.js');
 
 var Handler = module.exports = function(app) {
 	Base.call(this, app);
