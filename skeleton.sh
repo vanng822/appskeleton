@@ -33,6 +33,7 @@ mkdir ${TARGET_DIR}/tests
 cp -r ${SOURCE_DIR}/app/routehandlers/* ${TARGET_DIR}/app/routehandlers/
 cp -r ${SOURCE_DIR}/app/views/ ${TARGET_DIR}/app/views/
 cp ${SOURCE_DIR}/app/bootstrap.js ${TARGET_DIR}/app/bootstrap.js
+cp ${SOURCE_DIR}/app/worker.js ${TARGET_DIR}/app/worker.js
 cp ${SOURCE_DIR}/app/public/css/app.css ${TARGET_DIR}/app/public/css/${APP_NAME}.css
 cp ${SOURCE_DIR}/app/public/js/app.js ${TARGET_DIR}/app/public/js/${APP_NAME}.js
 cp ${SOURCE_DIR}/app/public/img/icons/loading.gif ${TARGET_DIR}/app/public/img/icons/
