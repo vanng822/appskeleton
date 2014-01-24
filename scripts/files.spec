@@ -1,5 +1,6 @@
 
 ./app/bootstrap.js
+./app/worker.js
 ./app/routehandlers/base.js
 ./app/routehandlers/index.js
 

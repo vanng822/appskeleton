@@ -1,19 +1,6 @@
 var pstarter = require('pstarter');
 var appRequire = require('app-require');
-var worker = function() {
-	var config = appRequire.requireConfig();
-	var express = require('express');
-	var app = express();
-	var http = require('http');
-	var server = http.createServer(app);
-	var bootstrap = require('./app/bootstrap.js');
-	bootstrap.setupApp(app, __dirname);
-	bootstrap.bootstrap(app);
-	bootstrap.postrun();
-	server.listen(config.http.port, config.http.host);
-	return server;
-};
-
+var worker = require('./app/worker.js');
 /* run only one single process and worker for debug */
 if('worker' in process.env) {
 	var server = worker();
