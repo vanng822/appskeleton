@@ -7,6 +7,8 @@ module.exports = {
 		numWorkers : 2,
 		"static" : {
 			maxAge : 3600
-		}
+		},
+		apiPort : 3002,
+		apiHost : '127.0.0.1'
 	},
 };

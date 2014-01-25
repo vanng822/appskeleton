@@ -7,6 +7,6 @@ var worker = module.exports = function() {
 	bootstrap.setupApp(server, __dirname);
 	bootstrap.bootstrap(server);
 	// change
-	server.listen(config.http.port, config.http.host);
+	server.listen(config.http.apiPort, config.http.apiHost);
 	return server;
 };
