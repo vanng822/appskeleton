@@ -30,7 +30,7 @@ var scanHandlers = function(app, dir) {
 		var stat = fs.statSync(dir + '/'+ filename);
 		
 		if (stat.isDirectory()) {
-			scanHandlers(app, dir + '/'+ filename);
+			return scanHandlers(app, dir + '/'+ filename);
 		}
 		
 		try {
