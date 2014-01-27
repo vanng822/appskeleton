@@ -1,4 +1,4 @@
-var methods = ['GET', 'POST', 'HEAD', 'PUT', 'DEL', 'PATCH', 'OPTS'];
+var methods = ['GET', 'POST', 'HEAD', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'];
 
 var Base = function(app) {
 	this.route = null;
@@ -27,7 +27,7 @@ Base.prototype = {
 			if (supportedMethods.length < 1) {
 				console.log(self.route, 'specified as route but no match for any method: ', methods.join(', '));
 			} else {
-				if (supportedMethods.indexOf('OPTS') == -1) {
+				if (supportedMethods.indexOf('OPTIONS') == -1) {
 					app['opts'](self.route, function(req, res, next) {
 						res.header('Allow', supportedMethods.join(', '));
 						return res.send(200, {});

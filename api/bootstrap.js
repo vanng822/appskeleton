@@ -52,12 +52,14 @@ var scanHandlers = function(app, dir) {
 
 
 module.exports.setupApp = function(app, basedir) {
-	var basedir = path.normalize(basedir);
 	app.use(restify.acceptParser(app.acceptable));
 	app.use(restify.dateParser());
 	app.use(restify.queryParser());
 	app.use(restify.jsonp());
 	app.use(restify.bodyParser());
+	/* patch for http verbs */
+	app['delete'] = app['del'];
+	app['options'] = app['opts'];
 };
 
 module.exports.bootstrap = function(appl) {
