@@ -25,7 +25,7 @@ Base.prototype = {
 			});
 			
 			if (supportedMethods.length < 1) {
-				console.log(self.route, 'specified as route but no match for any method: ', methods.join(', '));
+				console.warn(self.route, 'specified as route but no match for any method: ', methods.join(', '));
 			} else {
 				if (supportedMethods.indexOf('OPTIONS') == -1) {
 					app['options'](self.route, function(req, res, next) {

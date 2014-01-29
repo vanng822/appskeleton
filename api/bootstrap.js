@@ -41,7 +41,7 @@ var scanHandlers = function(app, dir) {
 			if (isHandler(Handler)) {
 				handlers.push(new Handler(app));
 			} else {
-				console.log('Implementation is not a handle in filename', filename, 'They should inherits from Base. Use util.inherits');
+				console.warn('Implementation is not a handle in filename', filename, 'They should inherits from Base. Use util.inherits');
 			}
 		} catch (e) {
 			console.error(e);
