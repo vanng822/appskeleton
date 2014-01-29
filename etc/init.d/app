@@ -35,9 +35,9 @@ stop_server() {
 	
 	if [ "$?" = "0" ]; then
 		echo "Server stopped!"
-		exit 1
 	else
 		echo "Could not stop server"
+		exit 1
 	fi
 }
 
@@ -55,7 +55,6 @@ start_server() {
     	exit 1
     else
 	    echo "Node server started"
-	    exit 0
 	 fi
 }
 
