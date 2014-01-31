@@ -124,6 +124,8 @@ fi
 if [ "$LINK_INITD" != "" ]; then
 	ssh $SSH_COMMAND "sudo ln -s ${TARGET}/etc/init.d/APP_NAME /etc/init.d/APP_NAME"
 	ssh $SSH_COMMAND "sudo cd /etc/init.d/ && sudo update-rc.d APP_NAME defaults"
+	
+	ssh $SSH_COMMAND "sudo ln -s ${TARGET}/etc/init.d/APP_NAME.conf /etc/nginx/sites-enabled/APP_NAME.conf"
 fi
 
 if [ "$START_ACTION" != "" ]; then
