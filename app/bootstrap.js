@@ -70,13 +70,13 @@ module.exports.setupApp = function(app, basedir) {
 		staticHandler.globalSettings({
 			active : true,
 			inmemory : true,
-			pathJs : basedir + '/app/public/js',
-			pathCss:  basedir + '/app/public/css',
+			pathJs : basedir + '/public/js',
+			pathCss:  basedir + '/public/css',
 			maxAgeCss : config.http.static.maxAge,
 			maxAgeJs : config.http.static.maxAge
 		});
 		app.use(staticHandler.jcash());
-		app.use(express.static(basedir + '/app/public', {
+		app.use(express.static(basedir + '/public', {
 			maxAge : config.http.static.maxAge
 		}));
 		
@@ -101,7 +101,7 @@ module.exports.setupApp = function(app, basedir) {
 	cssManager = staticHandler.getCssManager();
 	jsManager.parseConfig(config.js);
 	cssManager.parseConfig(config.css);
-	imageManager = staticHandler.getImageManager({path : basedir + '/app/public/img', hasGm : false});
+	imageManager = staticHandler.getImageManager({path : basedir + '/public/img', hasGm : false});
 };
 
 module.exports.bootstrap = function(appl) {
