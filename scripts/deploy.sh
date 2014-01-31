@@ -26,7 +26,7 @@ usage() {
 	echo "Usage: deploy.sh -h, -a release|graceful|restart|force-restart, -l => create init.d symbolic link, -i => npm install, -u => npm update, -r => release, -ri => do all two"
 }
 
-while getopts "a:hirbu" OPTION
+while getopts "a:hirbul" OPTION
 do
 	case $OPTION in
 		h)
