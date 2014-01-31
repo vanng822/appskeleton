@@ -17,6 +17,7 @@
 ./config/production.js
 
 ./etc/init.d/APP_NAME
+./etc/nginx/APP_NAME.conf
 
 ./lib/breadcrumb.js
 ./lib/mobile.js
