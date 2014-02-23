@@ -13,3 +13,7 @@ Handler.prototype.setup = function(app) {
 Handler.prototype.GET = function(req, res) {
 	return res.json({status:'OK'});
 };
+
+Handler.prototype.HEAD = function(req, res) {
+	return res.json({status:'OK'});
+};
