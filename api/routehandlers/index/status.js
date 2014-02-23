@@ -1,3 +1,4 @@
+var util = require('util');
 var Base = require('../base.js');
 
 var Handler = module.exports = function(app) {
