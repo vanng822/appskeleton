@@ -3,6 +3,9 @@
 ./app/worker.js
 ./app/routehandlers/base.js
 ./app/routehandlers/index.js
+./app/routehandlers/index/robots_txt.js
+./app/routehandlers/index/status.js
+
 
 ./app/public/css/APP_NAME.css
 ./app/public/img/icons/loading.gif
