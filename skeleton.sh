@@ -60,14 +60,21 @@ echo "${PACKAGE_TEMPLATE}" | sed "s/APP_NAME/${APP_NAME}/g"  > ${TARGET_DIR}/pac
 
 cp ${SOURCE_DIR}/scripts/release.sh ${TARGET_DIR}/scripts/release.sh
 cp ${SOURCE_DIR}/scripts/version.sh ${TARGET_DIR}/scripts/version.sh
-RELEASE_FILE_TEMPLATE=$(cat ${SOURCE_DIR}/scripts/files.spec)
-touch ${TARGET_DIR}/scripts/files.spec
-echo "${RELEASE_FILE_TEMPLATE}" | sed "s/APP_NAME/${APP_NAME}/g"  > ${TARGET_DIR}/scripts/files.spec
 DEPLOY_TEMPLATE=$(cat ${SOURCE_DIR}/scripts/deploy.sh)
 touch ${TARGET_DIR}/scripts/deploy.sh
 TARGET_DIR_ESCAPE=$(echo ${TARGET_DIR} | sed 's/\//\\\//g')
 echo "${DEPLOY_TEMPLATE}" | sed "s/APP_TARGET_DIR/${TARGET_DIR_ESCAPE}/g" | sed "s/APP_NAME/${APP_NAME}/g" > ${TARGET_DIR}/scripts/deploy.sh
 chmod u+x ${TARGET_DIR}/scripts/deploy.sh
+
+
+RELEASE_FILE_TEMPLATE=$(cat ${SOURCE_DIR}/scripts/files.spec)
+touch ${TARGET_DIR}/scripts/files.spec
+echo "${RELEASE_FILE_TEMPLATE}" | sed "s/APP_NAME/${APP_NAME}/g"  > ${TARGET_DIR}/scripts/files.spec
+cd ${TARGET_DIR}
+echo ' ' >> ${TARGET_DIR}/scripts/files.spec
+find ./lib >>  ${TARGET_DIR}/scripts/files.spec
+echo ' ' >> ${TARGET_DIR}/scripts/files.spec
+find ./app >>  ${TARGET_DIR}/scripts/files.spec
 
 touch ${TARGET_DIR}/pstarter.pid
 mkdir ${TARGET_DIR}/app/public/img/dist
