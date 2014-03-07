@@ -10,7 +10,7 @@
 NODE_BIN=./
 SERVER="APP_NAME.js"
 
-PID_FILE=""/var/run/APP_NAME.pid""
+PID_FILE="/var/run/APP_NAME.pid"
 AS_USER="www-data"
 NODEJS=node
 NODE_ENV=production
