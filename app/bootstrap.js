@@ -105,7 +105,12 @@ module.exports.setupApp = function(app, basedir) {
 };
 
 module.exports.bootstrap = function(appl) {
-	scanHandlers(appl, __dirname + '/routehandlers')
+	scanHandlers(appl, __dirname + '/routehandlers');
+	if (handlers.length) {
+		appl.use(function(req, res) {
+			handlers[0].error404Page(req, res);
+		});
+	}
 }; 
 
 module.exports.postrun = function() {
