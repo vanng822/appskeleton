@@ -5,9 +5,9 @@
 ## fill in connection to server
 RELEASE_TARGET=FOLDER_ON_SERVER_FOR_STORE_RELEASE
 TARGET=FOLDER_WHERE_APP_WILL_UNPACK_AND_RUN
-## Have permission to write
+## Have permission to write username@domain.com
 SSH_CONNECT=CONNECT_INFO
-## have permission to run /etc/init.d/APP_NAME
+## have permission to run /etc/init.d/APP_NAME, su_username@domain.com
 SSH_COMMAND=COMMAND_INFO
 
 ###=== NO NEED TO TOUCH those bellow ===
